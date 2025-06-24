@@ -39,4 +39,6 @@ void validacionCedula(int *cedulaValidar);
 int validarPlaca(char placa[]);
 
 void pedirPlaca(char placa[]);
+
+float calcularValormatricula(int pagoAtiempo, int hizoevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo);
 #endif
