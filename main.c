@@ -48,15 +48,11 @@ int main(){
 				printf("Ingresar año del vehículo\n");
 				scanf("%d",&persona.anioAuto);
 				
-				clearInputBuffer(); 
-				
 				//Escribir los datos en el txt 
-				fprintf(archivoDatos,"%s,%d,%s,%s,%s,%s\n",persona.nombrePropietario,persona.numCedula, persona.modeloAuto,persona.placa, persona.colorAuto, persona.anioAuto);
+				fprintf(archivoDatos,"%s,%d,%s,%s,%s,%d\n",persona.nombrePropietario,persona.numCedula, persona.modeloAuto,persona.placa, persona.colorAuto, persona.anioAuto);
 				
 				
 				fclose(archivoDatos);
-				
-				opcionUsuario = continuar();
 				break;
 			case 2:
 				printf("-----Buscar vehículo-----\n");
