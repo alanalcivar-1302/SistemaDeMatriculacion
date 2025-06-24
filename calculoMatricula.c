@@ -1,35 +1,27 @@
-#include "funciones.h"
-
+#include "funciones.h" 
 #include <stdio.h>
+float calcularValormatricula(int pagoAtiempo, int hizoevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo) {
 
-float calcularValormatricula(int pagoAtiempo, int hizoRevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo) {
-	
 	//Datos del recargo y descuentos
-	float recargoRevision = 50.0; //D?lares
-	float recargoMes = 25.0; //D?lares
+	float recargoRevision = 50.0; //Dólares
+	float recargoMes = 25.0; //Dólares
 	float descuentoProntopago = 0.5; //Porcentaje de descuento (50%)
-	float MatriculaporVehiculo; //Variable de subsecciones para el tipo de veh?culo.
+	float MatriculaporVehiculo; //Variable de subsecciones para el tipo de vehículo.
 	
-	//Precio de matr?cula con respecto al tipo de veh?culo 
+	//Precio de matrícula con respecto al tipo de vehículo 
 	switch (tipoVehiculo){
-	case 1: 
-		MatriculaporVehiculo = 100.0;  //Para auto
-		break;
-	case 2: 
-		MatriculaporVehiculo = 150.0; //Para motocicleta
-		break;
-	case 3: 
-		MatriculaporVehiculo = 250.0; //Para cami?n
-		break;
-	case 4: 
-		MatriculaporVehiculo = 175.0; //Para Bus
-		break;
-	default:
-		return 0;
+		case 1: MatriculaporVehiculo = 100.0;  //Para auto
+			break;
+		case 2: MatriculaporVehiculo = 150.0; //Para motocicleta
+			break;
+		case 3: MatriculaporVehiculo = 250.0; //Para camión
+			break;
+		case 4: MatriculaporVehiculo = 175,0; //Para Bus
+			break;
 	}
 	
 	// Se suman recargos
-	if (hizoRevisionVehiculo == 2) {
+	if (hizoevisionVehiculo == 2) {
 		MatriculaporVehiculo += recargoRevision;
 	}
 	
@@ -37,7 +29,7 @@ float calcularValormatricula(int pagoAtiempo, int hizoRevisionVehiculo, int dias
 		MatriculaporVehiculo += recargoMes;
 	}
 	
-	// Descuento solamente si d?as <= 20
+	// Descuento solamente si días <= 20
 	if (pagoAtiempo == 1 && diasPago <= 20) {
 		MatriculaporVehiculo *= (1 - descuentoProntopago);   // Para 50% de descuento
 	}
