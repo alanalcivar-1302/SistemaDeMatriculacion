@@ -34,7 +34,7 @@ void opcionesUsuario(int *opcionEscoger, int rangoOpciones){
 		scanf("%d",	opcionEscoger);
 	}
 };
-
+	
 //Nombre - Caracteres
 int validacionCaracteres(char stringValidar[]){
 	//int i = 0;
@@ -45,7 +45,7 @@ int validacionCaracteres(char stringValidar[]){
 	}
 	return 1;
 }
-
+	
 void validacionEntradaNombre(char *stringValidar){
 	int resultado, intentos = 0;
 	do
@@ -81,7 +81,7 @@ void validacionCedula(int *cedulaValidar) {
 	
 	do {
 		if (intentos > 0) {
-			printf("Cédula incompleta, ingrese nuevamente: \n");
+			printf("Cédula incorrecta, ingrese nuevamente: \n");
 		}
 		
 		validacionNumerica(cedulaValidar); 
@@ -90,7 +90,7 @@ void validacionCedula(int *cedulaValidar) {
 		
 	} while (strlen(cedulaStr) != 10);
 }
-	
+
 //Validacion placa
 int validarPlaca(char placa[]) {
 	if (strlen(placa) != 8)
@@ -109,7 +109,7 @@ int validarPlaca(char placa[]) {
 	}
 	return 1;
 }
-	
+
 void pedirPlaca(char placa[]) {
 	do {
 		printf("Ingrese la placa (ej: ABC-1234): \n");
@@ -119,7 +119,7 @@ void pedirPlaca(char placa[]) {
 			printf("Placa invalida, intente de nuevo.\n");
 	} while (!validarPlaca(placa));
 }
-	
-
-
-
+		
+		
+		
+		
