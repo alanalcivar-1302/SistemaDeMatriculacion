@@ -101,7 +101,6 @@ int main(){
 				}
 				
 				printf("Gracias por preferir nuestro sistema. Regrese mas tarde.\n");
-				opcionUsuario = continuar();
 				break;
 			}
 			case 4:
