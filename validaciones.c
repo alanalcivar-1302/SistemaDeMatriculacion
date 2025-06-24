@@ -2,6 +2,30 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
+
+void registrarLog(const char *nivel, const char *funcion, const char *mensaje) {
+	FILE *log = fopen("log_programa.txt", "a");
+	
+	if (log == NULL) {
+		printf("No se pudo abrir el archivo de log.\n");
+		return;
+	}
+	
+	time_t tiempoActual = time(NULL);
+	char *tiempoTexto = ctime(&tiempoActual);
+	
+	// Eliminar salto de línea
+	for (int i = 0; tiempoTexto[i] != '\0'; i++) {
+		if (tiempoTexto[i] == '\n') {
+			tiempoTexto[i] = '\0';
+			break;
+		}
+	}
+	
+	fprintf(log, "[%s] [%s] [%s] %s\n", tiempoTexto, nivel, funcion, mensaje);
+	fclose(log);
+}
 
 void opcionesUsuario(int *opcionEscoger, int rangoOpciones){
 	
