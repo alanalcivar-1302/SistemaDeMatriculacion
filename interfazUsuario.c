@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void menu() {
+void menuUsuario() {
 	printf("1. Agendar citas.\n");
 	printf("2. Calculo valor a pagar por matricula.\n");
 	printf("3. Buscar auto por cedula.\n");
@@ -26,7 +26,7 @@ int main() {
 		case 1: {
 			int opciones;
 			do {
-				menu();
+				menuUsuario();
 				printf("\nIngrese una opcion: ");
 				scanf("%d", &opciones);
 				system("cls");
