@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 
-void buscarYSepararPorComa(const char *nombreArchivo, const char *datoBuscado) {
+void buscarVehiculo(const char *nombreArchivo, const char *datoBuscado) {
 	FILE *archivo = fopen(nombreArchivo, "r");
 	char linea[101];  
 	int encontrado = 0;
