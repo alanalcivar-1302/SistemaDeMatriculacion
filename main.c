@@ -65,7 +65,7 @@ int main(){
 		case 2:
 			printf("-----Buscar vehículo-----\n");
 			pedirPlaca(placaBuscar);
-			buscarYSepararPorComa("datosVehiculos.txt",placaBuscar);
+			buscarVehiculo("datosVehiculos.txt",placaBuscar);
 			break;
 		case 3:{
 			
