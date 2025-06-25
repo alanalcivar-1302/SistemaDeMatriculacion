@@ -46,6 +46,7 @@ int main(){
 				printf("Ingrese el modelo del vehiculo\n");
 				scanf("%s",&persona.modeloAuto);
 				
+				clearInputBuffer();
 				pedirPlaca(persona.placa);
 				
 				printf("Ingresar el color del vehículo\n");
