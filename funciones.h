@@ -41,4 +41,6 @@ int validarPlaca(char placa[]);
 void pedirPlaca(char placa[]);
 
 float calcularValormatricula(int pagoAtiempo, int hizoevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo);
+
+void buscarYSepararPorComa(const char *nombreArchivo, const char *datoBuscado);
 #endif
