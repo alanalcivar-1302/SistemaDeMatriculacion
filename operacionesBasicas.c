@@ -1,6 +1,7 @@
 #include "funciones.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 
 
 //Tamaño de carácteres en arreglos
@@ -8,6 +9,10 @@
 #define TAM_NOMBRE 100
 #define TAM_PLACA 10
 
+
+void limpiarTerminal(){
+	system("cls");
+}
 
 void menu(){
 	printf("1. Registrar vehículo \n");

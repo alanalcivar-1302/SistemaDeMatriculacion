@@ -6,7 +6,7 @@
 
 int main(){
 	
-	int opcionUsuario = 0;
+	int opcionUsuario = 0, opcionOperacion = 0;
 	FILE *archivoDatos;
 	datosUsuario persona;
 	
@@ -25,42 +25,8 @@ int main(){
 		case 1:
 			printf("-----Registro de vehiculos-----\n");
 			
-			archivoDatos = fopen("datosVehiculos.txt","a");
-			
-			if (archivoDatos == NULL) {
-				printf("Error: El archivo no existe.\n");
-				registrarLog("ERROR", "main", "No se pudo abrir el archivo datosVehiculos.txt.");
-				fclose(archivoDatos);
-			}
-			else{
-				clearInputBuffer();
-				
-				
-				//ingresar datos del usuario
-				printf("Ingrese el nombre del propietario\n");
-				validacionEntradaNombre(&persona.nombrePropietario);
-				
-				printf("Ingrese su numero de cedula \n");
-				validacionCedula(&persona.numCedula);
-				
-				printf("Ingrese el modelo del vehiculo\n");
-				scanf("%s",&persona.modeloAuto);
-				
-				clearInputBuffer();
-				pedirPlaca(persona.placa);
-				
-				printf("Ingresar el color del vehículo\n");
-				scanf("%s",&persona.colorAuto);
-				
-				printf("Ingresar año del vehículo\n");
-				scanf("%d",&persona.anioAuto);
-				
-				//Escribir los datos en el txt 
-				fprintf(archivoDatos,"%s,%d,%s,%s,%s,%d\n",persona.nombrePropietario,persona.numCedula, persona.modeloAuto,persona.placa, persona.colorAuto, persona.anioAuto);
-				
-				
-				fclose(archivoDatos);
-			}
+			registroVehiculos(&archivoDatos,&opcionOperacion);
+
 			break;
 		case 2:
 			printf("-----Buscar vehículo-----\n");

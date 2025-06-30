@@ -3,6 +3,63 @@
 #include <stdio.h>
 #include <string.h>
 
+void registroVehiculos(FILE *archivoDatos, int *continuarRegistros){
+			
+	archivoDatos = fopen("datosVehiculos.txt","a");
+
+	if (archivoDatos == NULL) {
+		printf("Error: El archivo no existe.\n");
+		registrarLog("ERROR", "main", "No se pudo abrir el archivo datosVehiculos.txt.");
+		fclose(archivoDatos);
+	}
+	else{
+		clearInputBuffer();
+		
+		do {
+			
+			//ingresar datos del usuario
+			printf("Ingrese el nombre del propietario\n");
+			validacionEntradaNombre(&persona.nombrePropietario);
+			
+			limpiarTerminal();
+	
+			printf("Ingrese su numero de cedula \n");
+			validacionCedula(&persona.numCedula);
+	
+			limpiarTerminal();
+			
+			printf("Ingrese el modelo del vehiculo\n");
+			scanf("%s",&persona.modeloAuto);
+			
+			limpiarTerminal();
+	
+			clearInputBuffer();
+			pedirPlaca(persona.placa);
+	
+			limpiarTerminal();
+			
+			printf("Ingresar el color del vehículo\n");
+			scanf("%s",&persona.colorAuto);
+	
+			limpiarTerminal();
+			
+			printf("Ingresar año del vehículo\n");
+			scanf("%d",&persona.anioAuto);
+	
+			limpiarTerminal();
+			
+			//Escribir los datos en el txt 
+			fprintf(archivoDatos,"%s,%d,%s,%s,%s,%d\n",persona.nombrePropietario,persona.numCedula, persona.modeloAuto,persona.placa, persona.colorAuto, persona.anioAuto);
+			
+			fclose(archivoDatos);
+
+			printf("Desea registrar otro vehiculo 1. Si, 2. No");
+			opcionesUsuario(&continuarRegistros,2);
+
+		}while(continuarRegistros == 2);
+	}
+		
+}
 
 
 void buscarVehiculo(const char *nombreArchivo, const char *datoBuscado) {
