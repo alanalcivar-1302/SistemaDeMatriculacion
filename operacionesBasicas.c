@@ -13,7 +13,7 @@
 void limpiarTerminal(){
 	system("cls");
 }
-
+	
 void menu(){
 	printf("1. Registrar vehículo \n");
 	printf("2. Buscar vehículo por placa \n");
@@ -41,11 +41,9 @@ int continuar(){
 	else
 		return 0;
 };
-	
-
+		
+		
 void clearInputBuffer(){
 	int c;
 	while ((c = getchar()) != '\n' && c != EOF);
 }
-
-	
