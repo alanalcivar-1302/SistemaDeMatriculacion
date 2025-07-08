@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
+#include <stdlib.h>
 
 void registrarLog(const char *nivel, const char *funcion, const char *mensaje) {
 	FILE *log = fopen("log_programa.txt", "a");
@@ -84,27 +85,26 @@ void validacionCedula(char *cedulaValidar){
 		condiciones = 0;
 		
 		scanf("%s",cedulaValidar);
+		limpiarTerminal();
 		
 		for (int i = 0; cedulaValidar[i] != '\0'; i++){
-			if (isdigit(cedulaValidar[i])==0){
+			if (!isdigit(cedulaValidar[i])){
 				condiciones = 2;
 				break;
 			}
 			else{
-				printf("%d\n",i);
 				if(i == 9){
 					longitud = strlen(cedulaValidar);
-					printf("llego al strlen %d\n",longitud);
 					if (longitud == 10){
 						condiciones = 1;
 					}
 				}
 			}
 		}
+		
 		if (condiciones == 0)
 			printf("Cédula incompleta ingrese nuevamente\n");
 		
-		printf("%d\n",condiciones);
 		if(condiciones == 2)
 			printf("Se ingresó información erronea, ingrese nuevamente su cédula\n");
 		
@@ -118,9 +118,12 @@ int validarPlaca(char placa[]) {
 		return 0;
 	
 	for (int i = 0; i < 3; i++) {
-		if (!isupper(placa[i])) 
+		if (!isalpha(placa[i])){
 			return 0;
+		}
+		placa[i] = toupper(placa[i]);
 	}
+	
 	if (placa[3] != '-') 
 		return 0;
 	
@@ -139,3 +142,4 @@ void pedirPlaca(char placa[]) {
 			printf("Placa invalida, intente de nuevo.\n");
 	} while (!validarPlaca(placa));
 }
+	
