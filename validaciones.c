@@ -29,12 +29,13 @@ void registrarLog(const char *nivel, const char *funcion, const char *mensaje) {
 
 void opcionesUsuario(int *opcionEscoger, int rangoOpciones){
 	
-	while ((*opcionEscoger < 0) || (*opcionEscoger > rangoOpciones	)){
+	scanf("%d",opcionEscoger);
+	while ((*opcionEscoger < 0) || (*opcionEscoger > rangoOpciones)){
 		printf("Opcion no valida, ingrese nuevamente (1-%d)\n",rangoOpciones);
 		scanf("%d",	opcionEscoger);
 	}
 };
-	
+
 //Nombre - Caracteres
 int validacionCaracteres(char stringValidar[]){
 	//int i = 0;
@@ -45,7 +46,7 @@ int validacionCaracteres(char stringValidar[]){
 	}
 	return 1;
 }
-	
+
 void validacionEntradaNombre(char *stringValidar){
 	int resultado, intentos = 0;
 	do
@@ -63,7 +64,7 @@ void validacionEntradaNombre(char *stringValidar){
 	}while(resultado != 0);
 	
 }
-	
+			
 //Validacion Cedula
 
 void validacionNumerica(int *valor) {
@@ -75,21 +76,41 @@ void validacionNumerica(int *valor) {
 	
 }
 
-void validacionCedula(int *cedulaValidar) {
-	char cedulaStr[11];
-	int intentos = 0;
+
+void validacionCedula(char *cedulaValidar){
+	int longitud = 0, condiciones = 0;
 	
 	do {
-		if (intentos > 0) {
-			printf("Cédula incorrecta, ingrese nuevamente: \n");
+		condiciones = 0;
+		
+		scanf("%s",cedulaValidar);
+		
+		for (int i = 0; cedulaValidar[i] != '\0'; i++){
+			if (isdigit(cedulaValidar[i])==0){
+				condiciones = 2;
+				break;
+			}
+			else{
+				printf("%d\n",i);
+				if(i == 9){
+					longitud = strlen(cedulaValidar);
+					printf("llego al strlen %d\n",longitud);
+					if (longitud == 10){
+						condiciones = 1;
+					}
+				}
+			}
 		}
+		if (condiciones == 0)
+			printf("Cédula incompleta ingrese nuevamente\n");
 		
-		validacionNumerica(cedulaValidar); 
-		sprintf(cedulaStr, "%d", *cedulaValidar); 
-		intentos++;
+		printf("%d\n",condiciones);
+		if(condiciones == 2)
+			printf("Se ingresó información erronea, ingrese nuevamente su cédula\n");
 		
-	} while (strlen(cedulaStr) != 10);
+	} while ((condiciones == 0) || (condiciones == 2));
 }
+
 
 //Validacion placa
 int validarPlaca(char placa[]) {
@@ -112,14 +133,9 @@ int validarPlaca(char placa[]) {
 
 void pedirPlaca(char placa[]) {
 	do {
-		printf("Ingrese la placa (ej: ABC-1234): \n");
 		fgets(placa, TAM_PLACA, stdin);
 		placa[strcspn(placa, "\n")] = '\0';
 		if (!validarPlaca(placa)) 
 			printf("Placa invalida, intente de nuevo.\n");
 	} while (!validarPlaca(placa));
 }
-		
-		
-		
-		
