@@ -31,4 +31,4 @@ _Los autores que hicieron posible este proyecto son:_
 *	**Alan Alcivar** - *Product owner* - [alanalcivar-1302](https://github.com/alanalcivar-1302)
 *	**Erick Villanueva** - *Scrum Master* - [Pol949](https://github.com/Pol949)
 *	**Esteban Flor** - *Development Team* - [ALEXANDER-Lex](https://github.com/ALEXANDER-Lex)
-*	**Kevin Ochoa** - *Development Team / Documentación* - [KevinOchoa8](https://github.com/KevinOchoa8)
+*	**Kevin Ochoa** - *Development Team / Documentation* - [KevinOchoa8](https://github.com/KevinOchoa8)
