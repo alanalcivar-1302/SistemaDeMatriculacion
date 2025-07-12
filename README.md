@@ -32,3 +32,10 @@ _Los autores que hicieron posible este proyecto son:_
 *	**Erick Villanueva** - *Scrum Master* - [Pol949](https://github.com/Pol949)
 *	**Esteban Flor** - *Development Team* - [ALEXANDER-Lex](https://github.com/ALEXANDER-Lex)
 *	**Kevin Ochoa** - *Development Team / Documentation* - [KevinOchoa8](https://github.com/KevinOchoa8)
+## Gratitud :)
+* Agradecemos el tiempo que se tomó en leer este breve **README**
+* Por último, le presentamos los respectivos manuales para una mejor comprensión del programa tanto para desarrollador y usuario.
+### Manual Técnico
+
+### Manual de Usuario
+
