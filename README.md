@@ -1,11 +1,14 @@
 # Sistema Integral de Matriculación Vehicular
-_Este proyecto permite matricular vehículos, realizar pagos y gestiones conformes a la misma._
+_Este proyecto permite matricular vehículos, realizar pagos y gestiones conformes a la misma._ 
+
 Recordar que es una simulación referenciada de la AMT del Ecuador. #_Esto no es oficial.
 ## Comenzando 🚀
 _Desarrollado en Zinjai, un entorno de desarrollo integrado (IDE) gratuito y de código abierto para el lenguaje de programación C/C++_
+
 Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas.
 ### Pre-Requisitos📋
 _El proyecto no será lanzado oficialmente. Esto solo es una simulación con fines educativos._
+
 *	Se recomienda tener Zinjai instalado o portable.
 *	Busca en el repositorio GitHub **ProyectoProgramacion.zip**, descárgalo y descomprímelo.
 ### Instalación🔧
