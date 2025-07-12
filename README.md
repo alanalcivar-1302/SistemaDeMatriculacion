@@ -9,14 +9,14 @@ _El proyecto no será lanzado oficialmente. Esto solo es una simulación con fin
 *	Se recomienda tener Zinjai instalado o portable.
 *	Busca en el repositorio GitHub **ProyectoProgramacion.zip**, descárgalo y descomprímelo.
 ### Instalación🔧
-###Opción 1: 
+### Opción 1: 
 *	Abre la carpeta **ProyectoProgramacion** y busca el archivo de tipo **ZPR – Zinjai Project** 
 *	Se te abrirá todo el programa listo para seguir su desarrollo. Además de poder ejecutarlo. 
-###Opción 2 (Si la anterior opción no te valió)
+### Opción 2 (Si la anterior opción no te valió):
 *	Abre Zinjai y dirígete a **Archivo** en la parte superior de la izquierda y selecciona **Abrir/Agregar al proyecto…**
 *	 Busca y selecciona el archivo **ZPR – Zinjai Project**
 *	Con eso debería funcionar.
-###Opción 3
+### Opción 3:
 *	Si todo lo demás no te funcionó. Descarga de nuevo el programa.
 *	Si eso todavía no funciona. Descarga y reinstala de nuevo el IDE Zinjai.
 ### Ejecutando las pruebas⚙️
