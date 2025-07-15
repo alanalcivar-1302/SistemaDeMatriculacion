@@ -36,7 +36,7 @@ void opcionesUsuario(int *opcionEscoger, int rangoOpciones);float calcularValorm
 
 int validacionCaracteres(char stringValidar[]);
 
-void validacionEntradaNombre(char *stringValidar);
+void validacionEntradaNombre(char *stringValidar, int tamanoChar);
 
 void validacionNumerica(int *intValidar);
 
@@ -70,4 +70,7 @@ void registrar();
 
 void iniciarSesion();
 
+void clearInputBuffer();
+
+void registrarLog(const char *nivel, const char *funcion, const char *mensaje);	
 #endif
