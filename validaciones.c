@@ -31,52 +31,59 @@ void registrarLog(const char *nivel, const char *funcion, const char *mensaje) {
 
 void opcionesUsuario(int *opcionEscoger, int rangoOpciones){
 	
-	scanf("%d",opcionEscoger);
-	while ((*opcionEscoger < 0) || (*opcionEscoger > rangoOpciones)){
+	validacionNumerica(opcionEscoger);
+	//scanf("%d",opcionEscoger);
+	while ((*opcionEscoger < 0) || (*opcionEscoger > rangoOpciones) ){
+		limpiarTerminal();
+		menu();
 		printf("Opcion no valida, ingrese nuevamente (1-%d)\n",rangoOpciones);
-		scanf("%d",	opcionEscoger);
+		validacionNumerica(opcionEscoger);
 	}
 };
 
 //Nombre - Caracteres
 int validacionCaracteres(char stringValidar[]){
 	for (int i = 0; stringValidar[i] != '\0'; i++){
-		if (!isalpha(stringValidar[i]) || (stringValidar[i] == '\0')){
+		if (!isalpha(stringValidar[i]) && stringValidar[i] != ' '){
 			return 0;
 		}
 	}
 	return 1;
 }
 
-void validacionEntradaNombre(char *stringValidar){
+void validacionEntradaNombre(char *stringValidar, int tamanoChar) {
 	int resultado, intentos = 0;
-	do
-	{
-		if (intentos == 0){
-			intentos++;
-		}
-		else{
-			if (intentos == 1){
-				printf("Se ingresó información erronea\n");
-			}
-		}
-		scanf("%s",stringValidar);
-		resultado = validacionCaracteres(stringValidar);
-	}while(resultado != 1);
 	
+	do {
+		if (intentos > 0) {
+			limpiarTerminal();
+			printf("Se ingresó información errónea. Intente de nuevo su nombre:\n");
+		}
+		
+		fgets(stringValidar, tamanoChar, stdin);
+		
+		size_t len = strlen(stringValidar);
+		if (len > 0 && stringValidar[len - 1] == '\n') {
+			stringValidar[len - 1] = '\0';
+		}
+		
+		resultado = validacionCaracteres(stringValidar);
+		intentos++;
+		
+	} while (resultado != 1);
 }
-			
+
 //Validacion Cedula
 
 void validacionNumerica(int *valor) {
 	
 	while (scanf("%d", valor) != 1) {
 		clearInputBuffer();
+		limpiarTerminal();
 		printf("Entrada inválida. Ingrese solo números: \n");
 	}
 	
 }
-
 
 void validacionCedula(char *cedulaValidar){
 	int longitud = 0, condiciones = 0;
@@ -85,6 +92,8 @@ void validacionCedula(char *cedulaValidar){
 		condiciones = 0;
 		
 		scanf("%s",cedulaValidar);
+		clearInputBuffer();
+		
 		limpiarTerminal();
 		
 		for (int i = 0; cedulaValidar[i] != '\0'; i++){
