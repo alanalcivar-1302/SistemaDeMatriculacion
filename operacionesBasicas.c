@@ -5,9 +5,6 @@
 
 
 //Tamaño de carácteres en arreglos
-#define TAM_CEDULA 15
-#define TAM_NOMBRE 100
-#define TAM_PLACA 10
 
 
 void limpiarTerminal(){
