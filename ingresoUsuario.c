@@ -1,3 +1,6 @@
+#include "funciones.h"
+
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
@@ -7,12 +10,14 @@
 #define TAM_PLACA 10
 #define TAM_CEDULA 10
 
+
 typedef struct {
 	char usuario[20];
 	char contrasena[10];
-} Usuario;
+} usuario;
 
-Usuario usuarios[MAX];
+
+usuario usuarios[MAX];
 int totalUsuarios = 0;
 
 void cargarUsuarios() {
@@ -117,6 +122,7 @@ void iniciarSesion() {
 				pedirPlaca(placaBuscar);
 				
 				buscarVehiculo("datosVehiculos.txt",placaBuscar);
+				system("pause");
 				
 				break;
 			case 3:{
