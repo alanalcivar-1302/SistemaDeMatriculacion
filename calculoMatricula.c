@@ -1,27 +1,36 @@
-#include "funciones.h" 
-#include <stdio.h>
-float calcularValormatricula(int pagoAtiempo, int hizoevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo) {
+#include "funciones.h"
 
-	//Datos del recargo y descuentos
-	float recargoRevision = 50.0; //Dólares
-	float recargoMes = 25.0; //Dólares
-	float descuentoProntopago = 0.5; //Porcentaje de descuento (50%)
-	float MatriculaporVehiculo; //Variable de subsecciones para el tipo de vehículo.
+#include <stdio.h>
+#include <string.h>
+
+float calcularValormatricula(int pagoAtiempo, int hizoRevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo) {
 	
-	//Precio de matrícula con respecto al tipo de vehículo 
+	//Datos del recargo y descuentos
+	float recargoRevision = 50.0; //D?lares
+	float recargoMes = 25.0; //D?lares
+	float descuentoProntopago = 0.5;  //Porcentaje de descuento (50%)
+	float MatriculaporVehiculo; //Variable de subsecciones para el tipo de veh?culo.
+	
+	//Precio de matr?cula con respecto al tipo de veh?culo 
 	switch (tipoVehiculo){
-		case 1: MatriculaporVehiculo = 100.0;  //Para auto
-			break;
-		case 2: MatriculaporVehiculo = 150.0; //Para motocicleta
-			break;
-		case 3: MatriculaporVehiculo = 250.0; //Para camión
-			break;
-		case 4: MatriculaporVehiculo = 175,0; //Para Bus
-			break;
+	case 1: 
+		MatriculaporVehiculo = 100.0;  //Para auto
+		break;
+	case 2: 
+		MatriculaporVehiculo = 150.0; //Para motocicleta
+		break;
+	case 3: 
+		MatriculaporVehiculo = 250.0; //Para cami?n
+		break;
+	case 4: 
+		MatriculaporVehiculo = 175.0; //Para Bus
+		break;
+	default:
+		return 0;
 	}
 	
 	// Se suman recargos
-	if (hizoevisionVehiculo == 2) {
+	if (hizoRevisionVehiculo == 2) {
 		MatriculaporVehiculo += recargoRevision;
 	}
 	
@@ -29,7 +38,7 @@ float calcularValormatricula(int pagoAtiempo, int hizoevisionVehiculo, int diasP
 		MatriculaporVehiculo += recargoMes;
 	}
 	
-	// Descuento solamente si días <= 20
+	// Descuento solamente si d?as <= 20
 	if (pagoAtiempo == 1 && diasPago <= 20) {
 		MatriculaporVehiculo *= (1 - descuentoProntopago);   // Para 50% de descuento
 	}
@@ -37,4 +46,39 @@ float calcularValormatricula(int pagoAtiempo, int hizoevisionVehiculo, int diasP
 	// Total a pagar
 	return MatriculaporVehiculo + multasVehiculo;
 	
+}
+
+int buscarMulta(const char *nombreArchivo, const char *placaBuscada) {
+	FILE *archivo = fopen(nombreArchivo, "r");
+	char linea[201];
+	
+	if (archivo == NULL) {
+		printf("No se pudo abrir el archivo.\n");
+		return -1;  // Valor especial para indicar error
+	}
+	
+	while (fgets(linea, sizeof(linea), archivo)) {
+		// Elimina el salto de línea final
+		linea[strcspn(linea, "\n")] = '\0';
+		
+		// Verifica si la línea contiene la placa buscada
+		if (strstr(linea, placaBuscada) != NULL) {
+			char *campo = strtok(linea, ",");
+			int i = 1;
+			
+			while (campo != NULL) {
+				if (i == 7) {  
+					int multa = atoi(campo);
+					fclose(archivo);
+					return multa;
+				}
+				campo = strtok(NULL, ",");
+				i++;
+			}
+		}
+	}
+	
+	fclose(archivo);
+	printf("No se encontró ninguna multa con la placa '%s'\n", placaBuscada);
+	return -1;
 }
