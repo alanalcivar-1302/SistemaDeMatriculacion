@@ -1,5 +1,6 @@
 #include "funciones.h"
 
+#include <ctype.h>
 #include <stdio.h>
 #include <string.h>
 #include <time.h>
@@ -39,9 +40,8 @@ void opcionesUsuario(int *opcionEscoger, int rangoOpciones){
 
 //Nombre - Caracteres
 int validacionCaracteres(char stringValidar[]){
-	//int i = 0;
 	for (int i = 0; stringValidar[i] != '\0'; i++){
-		if ((isalpha(stringValidar[i]) != 0) || (stringValidar[i] = '\0')){
+		if (!isalpha(stringValidar[i]) || (stringValidar[i] == '\0')){
 			return 0;
 		}
 	}
@@ -62,7 +62,7 @@ void validacionEntradaNombre(char *stringValidar){
 		}
 		scanf("%s",stringValidar);
 		resultado = validacionCaracteres(stringValidar);
-	}while(resultado != 0);
+	}while(resultado != 1);
 	
 }
 			
@@ -142,4 +142,3 @@ void pedirPlaca(char placa[]) {
 			printf("Placa invalida, intente de nuevo.\n");
 	} while (!validarPlaca(placa));
 }
-	
