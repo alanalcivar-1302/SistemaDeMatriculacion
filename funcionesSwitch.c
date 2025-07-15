@@ -25,11 +25,10 @@ void registroVehiculos(FILE *archivoDatos, int *continuarRegistros){
 			
 			//ingresar datos del usuario
 			printf("Ingrese el nombre del propietario\n");
-			validacionEntradaNombre(&persona.nombrePropietario);
+			validacionEntradaNombre(persona.nombrePropietario,sizeof(persona.nombrePropietario));
 			
 			limpiarTerminal();
 			
-			clearInputBuffer();
 			printf("Ingrese su numero de cedula \n");
 			validacionCedula(persona.numCedula); //Cambio del &
 			
