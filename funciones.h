@@ -1,9 +1,10 @@
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
 
+
 #include <stdio.h>
+#include <stdbool.h>
 //Tamaño de carácteres en arreglos
-//#define TAM_CEDULA 15
 #define TAM_NOMBRE 100
 #define TAM_PLACA 10
 #define TAM_CEDULA 10
@@ -11,11 +12,6 @@
 #define TAM_CONTRASENA 10
 
 //Estructura de los datos
-
-typedef struct {
-	char usuario[20];
-	char contrasena[10];
-} Usuario;
 
 
 typedef struct{
@@ -29,7 +25,6 @@ typedef struct{
 	int multaVehiculo;
 	
 }datosUsuario;
-
 
 //Funciones 
 
@@ -60,5 +55,19 @@ void limpiarTerminal();
 void registroVehiculos(FILE *archivoDatos, int *continuarRegistro);
 
 void valorPago();
-	
+
+int buscarMulta(const char *nombreArchivo, const char *placaBuscada);
+
+void cargarUsuarios();
+
+void guardarUsuarios();
+
+bool verificarUsuario(const char* usuario, const char* contrasena);
+
+bool usuarioExiste(const char* usuario);
+
+void registrar();
+
+void iniciarSesion();
+
 #endif
