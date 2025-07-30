@@ -2,6 +2,37 @@
 
 #include <stdio.h>
 #include <string.h>
+int extraerRevisiones(char *nombreArchivo, const char *placaBuscada){
+	FILE *archivo = fopen(nombreArchivo, "r");
+	char linea[201];
+	
+	if (archivo = NULL){
+		printf("No se pudo abrir el archivo.\n");
+		return -1;
+	}
+	while (fgets(linea, sizeof(linea),archivo)){
+		linea[strcspn(linea, "\n")] = '\0';
+		
+		if (strstr(linea, placaBuscada) != NULL){
+			char *campo = strtok(linea, ",");
+			int i = 1;
+			
+			while (campo != NULL){
+				if (i == 2){
+					int revisiones = atoi(campo);
+					fclose(archivo);
+					return revisiones;
+				}
+				campo = strtok(NULL, ",");
+				i++;
+			}
+		}
+	}
+	fclose(archivo);
+	printf("No se encontr%c el vehi%culo '%s'\n",162,161,placaBuscada);
+	return -1;
+}
+
 
 float calcularValormatricula(int pagoAtiempo, int hizoRevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo) {
 	
