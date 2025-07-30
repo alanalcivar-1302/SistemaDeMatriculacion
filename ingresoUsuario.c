@@ -10,6 +10,66 @@
 #define TAM_PLACA 10
 #define TAM_CEDULA 10
 
+void menuInicio(){
+	int opcionUsuario = 0, opcionOperacion = 0;
+	FILE *archivoDatos;
+	char placaBuscar[TAM_PLACA];
+	
+	while (opcionUsuario != 6){
+		
+		menu();
+		printf("Â¿QuÃ© desea realizar?\n");
+		opcionesUsuario(&opcionUsuario, 6);
+		
+		limpiarTerminal();
+		
+		
+		switch (opcionUsuario){
+		case 1:
+			printf("-----Registro de vehiculos-----\n");
+			
+			registroVehiculos(&archivoDatos,&opcionOperacion);
+			
+			break;
+		case 2:
+			printf("-----Buscar vehÃ­culo-----\n");
+			
+			clearInputBuffer();
+			
+			printf("Ingrese la placa (ej: ABC-1234): \n");
+			pedirPlaca(placaBuscar);
+			
+			buscarVehiculo("datosVehiculos.txt",placaBuscar);
+			system("pause");
+			
+			break;
+		case 3:{
+			printf("-----Calculo del valor de la matricula-----\n");
+			
+			valorPago();
+			
+			break;
+		}
+		case 4:
+				printf("-----Agendar cita de revisiÃ³n-----\n");
+				agendarCita();
+				break;
+		case 5:
+			printf("-----Listar vehiculos registrados-----\n");
+			
+			listarVehiculos();
+			
+			break;
+		case 6:
+			printf("Gracias por usar nuestro sistema\n");
+			system("pause");
+			break;
+		default:
+			break;
+		}
+		limpiarTerminal();
+	}
+}
 
 typedef struct {
 	char usuario[20];
@@ -60,19 +120,19 @@ bool usuarioExiste(const char* usuario) {
 
 void registrar() {
 	if (totalUsuarios >= MAX) {
-		printf("No se pueden registrar más usuarios.\n");
+		printf("No se pueden registrar mÃ¡s usuarios.\n");
 		return;
 	}
 	
 	printf("\nIngrese nuevo usuario: ");
 	scanf("%49s", usuarios[totalUsuarios].usuario);
 	
-	printf("Ingrese nueva contraseña: ");
+	printf("Ingrese nueva contraseÃ±a: ");
 	scanf("%49s", usuarios[totalUsuarios].contrasena);
 	
 	totalUsuarios++;
 	guardarUsuarios();
-	printf("\n¡Registro exitoso! Ahora puedes iniciar sesión.\n\n");
+	printf("\nÂ¡Registro exitoso! Ahora puedes iniciar sesiÃ³n.\n\n");
 	system("pause");
 	limpiarTerminal();
 }
@@ -85,71 +145,22 @@ void iniciarSesion() {
 	printf("Usuario: ");
 	scanf("%49s", usuario);
 	
-	printf("Contraseña: ");
+	printf("ContraseÃ±a: ");
 	scanf("%49s", contrasena);
 	
 	if (verificarUsuario(usuario, contrasena)) {
-		printf("\n¡Ingreso correcto! Bienvenido %s \n",usuario);
+		printf("\nÂ¡Ingreso correcto! Bienvenido %s \n",usuario);
 		system("pause");
 		limpiarTerminal();
+		menuInicio();
 		
-		int opcionUsuario = 0, opcionOperacion = 0;
-		FILE *archivoDatos;
-		char placaBuscar[TAM_PLACA];
-		
-		while (opcionUsuario != 5){
-			
-			menu();
-			printf("¿Qué desea realizar?\n");
-			opcionesUsuario(&opcionUsuario, 5);
-			
-			limpiarTerminal();
-			
-			
-			switch (opcionUsuario){
-			case 1:
-				printf("-----Registro de vehiculos-----\n");
-				
-				registroVehiculos(&archivoDatos,&opcionOperacion);
-				
-				break;
-			case 2:
-				printf("-----Buscar vehículo-----\n");
-				
-				clearInputBuffer();
-				
-				printf("Ingrese la placa (ej: ABC-1234): \n");
-				pedirPlaca(placaBuscar);
-				
-				buscarVehiculo("datosVehiculos.txt",placaBuscar);
-				system("pause");
-				
-				break;
-			case 3:{
-				printf("-----Calculo del valor de la matricula-----\n");
-				
-				valorPago();
-				
-				break;
-			}
-			case 4:
-					printf("-----Agendar cita de revisión-----\n");
-					break;
-			case 5:
-				printf("Gracias por usar nuestro sistema\n");
-				break;
-			default:
-				break;
-			}
-			limpiarTerminal();
-		}
 	} else {
 		limpiarTerminal();
 		int opcion;
-		printf("\nUsuario o contraseña incorrectos\n");
+		printf("\nUsuario o contraseÃ±a incorrectos\n");
 		printf("1. Intentar de nuevo\n");
 		printf("2. Registrarse\n");
-		printf("Seleccione una opción: ");
+		printf("Seleccione una opciÃ³n: ");
 		scanf("%d", &opcion);
 		
 		if (opcion == 1) {
