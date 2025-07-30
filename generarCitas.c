@@ -125,8 +125,8 @@ void agendarCita() {
 	
 	clearInputBuffer();
 	
-	printf("Ingrese la placa del vehiculo: \n");
-	//scanf("%s", validacionPlaca);
+	printf("Ingrese la placa del veh%cculo: \n",161);
+	scanf("%s", validacionPlaca);
 	/*printf("%s",validacionPlaca);*/
 	pedirPlaca(validacionPlaca);
 
@@ -135,7 +135,7 @@ void agendarCita() {
 	
 	while (validacion == 0) {
 		limpiarTerminal();
-		printf("Vehiculo no encontrado, Ingrese la placa del vehiculo nuevamente: \n");
+		printf("Veh%cculo no encontrado, Ingrese la placa del veh%cculo nuevamente: \n",161,161);
 		
 		pedirPlaca(validacionPlaca);
 		validacion = validacionVehiculo("datosVhiculos.txt", validacionPlaca); 
@@ -144,10 +144,10 @@ void agendarCita() {
 
 	if (validacion == 1) {
 		limpiarTerminal();
-		printf("Se realizo exitosamente el agendamiento de cita.\n");
+		printf("Se realiz%c exitosamente el agendamiento de cita.\n",162);
 		printf("\n----- COMPROBANTE DE CITA -----\n");
 		buscarVehiculo("datosVehiculos.txt",validacionPlaca);
-		printf("\nSe le asignara una fecha espere....\n");
+		printf("\nSe le asignar%c una fecha espere....\n",160);
 		generarFecha();
 		system ("pause");
 
