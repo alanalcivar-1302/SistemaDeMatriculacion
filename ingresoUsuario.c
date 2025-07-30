@@ -18,7 +18,7 @@ void menuInicio(){
 	while (opcionUsuario != 6){
 		
 		menu();
-		printf("Â¿QuÃ© desea realizar?\n");
+		printf("Qu%c desea realizar?\n",130);
 		opcionesUsuario(&opcionUsuario, 6);
 		
 		limpiarTerminal();
@@ -26,13 +26,12 @@ void menuInicio(){
 		
 		switch (opcionUsuario){
 		case 1:
-			printf("-----Registro de vehiculos-----\n");
 			
 			registroVehiculos(&archivoDatos,&opcionOperacion);
 			
 			break;
 		case 2:
-			printf("-----Buscar vehÃ­culo-----\n");
+			printf("-----Buscar veh%cculo-----\n",161);
 			
 			clearInputBuffer();
 			
@@ -44,18 +43,18 @@ void menuInicio(){
 			
 			break;
 		case 3:{
-			printf("-----Calculo del valor de la matricula-----\n");
+			printf("-----Calculo del valor de la matr%ccula-----\n",161);
 			
 			valorPago();
 			
 			break;
 		}
 		case 4:
-				printf("-----Agendar cita de revisiÃ³n-----\n");
+				printf("-----Agendar cita de revisi%cn-----\n",162);
 				agendarCita();
 				break;
 		case 5:
-			printf("-----Listar vehiculos registrados-----\n");
+			printf("-----Listar veh%cculos registrados-----\n",161);
 			
 			listarVehiculos();
 			
@@ -84,7 +83,7 @@ void cargarUsuarios() {
 	FILE *archivo = fopen("Users.txt", "r");
 	if (archivo) {
 		while (fscanf(archivo, "%49[^,],%49s\n", usuarios[totalUsuarios].usuario, 
-					  usuarios[totalUsuarios].contrasena) == 2) {
+			usuarios[totalUsuarios].contrasena) == 2) {
 			totalUsuarios++;
 		}
 		fclose(archivo);
@@ -120,19 +119,19 @@ bool usuarioExiste(const char* usuario) {
 
 void registrar() {
 	if (totalUsuarios >= MAX) {
-		printf("No se pueden registrar mÃ¡s usuarios.\n");
+		printf("No se pueden registrar m%cs usuarios.\n",160);
 		return;
 	}
 	
 	printf("\nIngrese nuevo usuario: ");
 	scanf("%49s", usuarios[totalUsuarios].usuario);
 	
-	printf("Ingrese nueva contraseÃ±a: ");
+	printf("Ingrese nueva contrase%ca: ",164);
 	scanf("%49s", usuarios[totalUsuarios].contrasena);
 	
 	totalUsuarios++;
 	guardarUsuarios();
-	printf("\nÂ¡Registro exitoso! Ahora puedes iniciar sesiÃ³n.\n\n");
+	printf("\n%cRegistro exitoso! Ahora puedes iniciar sesi%cn.\n\n",33,162);
 	system("pause");
 	limpiarTerminal();
 }
@@ -145,11 +144,11 @@ void iniciarSesion() {
 	printf("Usuario: ");
 	scanf("%49s", usuario);
 	
-	printf("ContraseÃ±a: ");
+	printf("Contrase%ca: ",164);
 	scanf("%49s", contrasena);
 	
 	if (verificarUsuario(usuario, contrasena)) {
-		printf("\nÂ¡Ingreso correcto! Bienvenido %s \n",usuario);
+		printf("\n%cIngreso correcto! Bienvenido %s \n",33,usuario);
 		system("pause");
 		limpiarTerminal();
 		menuInicio();
@@ -157,10 +156,10 @@ void iniciarSesion() {
 	} else {
 		limpiarTerminal();
 		int opcion;
-		printf("\nUsuario o contraseÃ±a incorrectos\n");
+		printf("\nUsuario o contrase%ca incorrectos\n",164);
 		printf("1. Intentar de nuevo\n");
 		printf("2. Registrarse\n");
-		printf("Seleccione una opciÃ³n: ");
+		printf("Seleccione una opci%cn: ",162);
 		scanf("%d", &opcion);
 		
 		if (opcion == 1) {
