@@ -9,20 +9,23 @@
 
 void registroVehiculos(FILE *archivoDatos, int *continuarRegistros) {
 	srand(time(NULL));
-	int numeroRandom = 0;
+	char lineaTxt[201];
+	int numeroRandom = 0, encontrado = 0;
 	datosUsuario persona;
 	
-	archivoDatos = fopen("datosVehiculos.txt", "a");
+	archivoDatos = fopen("datosVehiculos.txt", "r");
 	
 	if (archivoDatos == NULL) {
 		printf("Error: El archivo no existe.\n");
 		registrarLog("ERROR", "main", "No se pudo abrir el archivo datosVehiculos.txt.");
+		system("pause");
 		return;
 	}
 	
 	do {
 		limpiarTerminal();
 		clearInputBuffer();
+		encontrado = 0;
 		
 		printf("Ingrese el nombre del propietario:\n");
 		validacionEntradaNombre(persona.nombrePropietario, TAM_NOMBRE);
@@ -52,16 +55,53 @@ void registroVehiculos(FILE *archivoDatos, int *continuarRegistros) {
 		numeroRandom = (rand() % 5);
 		persona.multaVehiculo = (numeroRandom == 0) ? 0 : (rand() % 501);
 		
-		fprintf(archivoDatos, "%s,%s,%s,%s,%s,%d,%d\n",persona.nombrePropietario,persona.numCedula,persona.modeloAuto,persona.placa,persona.colorAuto,persona.anioAuto,persona.multaVehiculo);
+		while (fgets(lineaTxt, sizeof(lineaTxt), archivoDatos)) {
+			lineaTxt[strcspn(lineaTxt, "\n")] = '\0';
+			
+			// Copia la línea porque strtok modifica la cadena
+			char lineaCopia[201];
+			strcpy(lineaCopia, lineaTxt);
+			
+			// Campos separados por coma
+			char *campo = strtok(lineaCopia, ","); // nombre propietario
+			int campoIndex = 0;
+			char placaArchivo[50] = "";
+			
+			while (campo != NULL) {
+				campoIndex++;
+				if (campoIndex == 4) { // El campo placa es el cuarto
+					strcpy(placaArchivo, campo);
+					break;
+				}
+				campo = strtok(NULL, ",");
+			}
+			
+			// Compara la placa exacta
+			if (strcmp(placaArchivo, persona.placa) == 0) {
+				encontrado = 1;
+				break;
+			}
+		}
 		
-		printf("Vehículo registrado correctamente.\n");
+		fclose(archivoDatos);
 		
-		printf("Nombre: %s\n",persona.nombrePropietario);
-		printf("Cedula: %s\n",persona.numCedula);
-		printf("Modelo: %s\n",persona.modeloAuto);
-		printf("Placa: %s\n",persona.placa);
-		printf("Color: %s\n",persona.colorAuto);
-		printf("Año vehiculo: %d\n",persona.anioAuto);
+		archivoDatos = fopen("datosVehiculos.txt", "a");
+		
+		if (!encontrado){
+			fprintf(archivoDatos, "%s,%s,%s,%s,%s,%d,%d\n",persona.nombrePropietario,persona.numCedula,persona.modeloAuto,persona.placa,persona.colorAuto,persona.anioAuto,persona.multaVehiculo);
+			
+			printf("Vehículo registrado correctamente.\n");
+			
+			printf("Nombre: %s\n",persona.nombrePropietario);
+			printf("Cedula: %s\n",persona.numCedula);
+			printf("Modelo: %s\n",persona.modeloAuto);
+			printf("Placa: %s\n",persona.placa);
+			printf("Color: %s\n",persona.colorAuto);
+			printf("Año vehiculo: %d\n",persona.anioAuto);
+		}
+		else{
+			printf("La placa %s ya se encuentra registrada\n",persona.placa);
+		}
 		
 		system("pause");
 		limpiarTerminal();
