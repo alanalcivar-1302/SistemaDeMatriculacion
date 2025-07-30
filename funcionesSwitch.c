@@ -178,7 +178,7 @@ void buscarVehiculo(const char *nombreArchivo, const char *datoBuscado) {
 
 void valorPago(){
 	int nuevoPagomatricula = 0;
-	
+	FILE *factura;
 	while (nuevoPagomatricula != 2) {
 		int revision, tipoVehiculo, multasVehiculo, totalpagoMatricula;
 		char placa[TAM_PLACA];
@@ -197,13 +197,21 @@ void valorPago(){
 			
 			totalpagoMatricula = calcularValormatricula(multasVehiculo, tipoVehiculo);
 			
-			printf("\n--------------- COMPROBANTE DE MATRICULA ---------------\n");
-			printf("Recuerde guardar el comprobante. \n");
-			printf("Multas: $%d\n", multasVehiculo);
-			printf("Total a pagar: $%d\n", totalpagoMatricula);
-			printf("----------------------------------------------------------\n");
+			factura = fopen("factura.txt","w");
 			
+			printf(factura,"\n--------------- COMPROBANTE DE MATRICULA ---------------\n");
+			printf(factura,"Recuerde guardar el comprobante. \n");
+			printf(factura,"Multas: $%d\n", multasVehiculo);
+			printf(factura,"Total a pagar: $%d\n", totalpagoMatricula);
+			printf(factura,"----------------------------------------------------------\n");
 			
+			fprintf(factura,"\n--------------- COMPROBANTE DE MATRICULA ---------------\n");
+			fprintf(factura,"Recuerde guardar el comprobante. \n");
+			fprintf(factura,"Multas: $%d\n", multasVehiculo);
+			fprintf(factura,"Total a pagar: $%d\n", totalpagoMatricula);
+			fprintf(factura,"----------------------------------------------------------\n");
+			
+			fclose(factura);
 		}
 		if(revision == -1)
 			printf("El auto con la placa %s no esta en nuestros registros\n",placa);
