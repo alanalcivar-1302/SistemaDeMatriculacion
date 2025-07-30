@@ -58,5 +58,4 @@ _Los autores que hicieron posible este proyecto son:_
 
 ### Manual de Usuario
 
-[MANUAL DE USUARIO - SISTEMA DE MATRICULACIÓN VEHICULAR.pdf](https://github.com/user-attachments/files/21503428/MANUAL.DE.USUARIO.-.SISTEMA.DE.MATRICULACION.VEHICULAR.pdf)
-
+[MANUAL DE USUARIO - SISTEMA DE MATRICULACIÓN VEHICULAR.pdf](https://github.com/user-attachments/files/21509738/MANUAL.DE.USUARIO.-.SISTEMA.DE.MATRICULACION.VEHICULAR.pdf)
