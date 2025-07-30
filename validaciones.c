@@ -32,7 +32,6 @@ void registrarLog(const char *nivel, const char *funcion, const char *mensaje) {
 void validacionEntradaNombre(char *destino, int tam) {
 	int valido = 0;
 	while (!valido) {
-		printf(" ");
 		fgets(destino, tam, stdin);
 		destino[strcspn(destino, "\n")] = '\0';  // Elimina el salto de línea
 		
@@ -81,15 +80,44 @@ void validacionAnio(int *anio) {
 	}
 }
 
+/*
+void opcionesUsuario(int *opcionEscoger, int rangoOpciones) {
+	char linea[10];  // pequeño, suficiente para leer un número
+	
+	while (1) {
+		printf("Ingrese una opción (0-%d): ", rangoOpciones);
+		fgets(linea, sizeof(linea), stdin);  // lee la línea
+		
+		if (sscanf(linea, "%d", opcionEscoger) != 1) {
+			printf("Se ha ingresado información errónea, intente nuevamente.\n");
+			continue;
+		}
+		
+		if (*opcionEscoger < 0 || *opcionEscoger > rangoOpciones) {
+			printf("Opción no válida, intente nuevamente (0-%d).\n", rangoOpciones);
+			continue;
+		}
+		
+		break;  // entrada válida
+	}
+}*/
+
 void opcionesUsuario(int *opcionEscoger, int rangoOpciones){
 	
-	scanf("%d",opcionEscoger);
+	int resultado;
+	resultado = scanf("%d",opcionEscoger);
+	
+	while (resultado != 1){
+		printf("Error, se ha ingresado informacion erronea\n");
+		clearInputBuffer();
+		resultado = (scanf("%d",opcionEscoger));
+	}
 	while ((*opcionEscoger < 0) || (*opcionEscoger > rangoOpciones)){
 		printf("Opcion no valida, ingrese nuevamente (1-%d)\n",rangoOpciones);
 		scanf("%d",	opcionEscoger);
 	}
 };
-	
+
 /*
 //Nombre - Caracteres
 int validacionCaracteres(char stringValidar[]){
