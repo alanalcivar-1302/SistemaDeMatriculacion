@@ -26,10 +26,16 @@ _El proyecto no será lanzado oficialmente. Esto solo es una simulación con fin
 *	Si eso todavía no funciona. Descarga y reinstala de nuevo el IDE Zinjai.
 ### Ejecución
 *	Una vez con el código abierto presiona F9 para iniciar el programa o en la parte superior de Zinjai busca la opción **Ejecución** y presiona **Ejecutar…**
-*	Se ejecutará el programa. Puede tardar unos segundos si es la primera vez que lo inicias.
-*	El .exe se creará automáticamente dentro del programa para no realizar estos pasos de nuevo.
 
-<img width="387" height="134" alt="Imagen1" src="https://github.com/user-attachments/assets/11bf4b30-e6b9-4637-88c5-189b0d1ce9b0" />
+<img width="907" height="352" alt="Captura de pantalla 2025-07-30 003154" src="https://github.com/user-attachments/assets/32c5166d-b2d0-44d8-ac93-3cd27eb395ec" />
+
+*	Se ejecutará el programa. Puede tardar unos segundos si es la primera vez que lo inicias.
+
+<img width="815" height="198" alt="Captura de pantalla 2025-07-30 003259" src="https://github.com/user-attachments/assets/c5ea890e-b609-4005-a6ff-8611abab6903" />
+
+*	Puedes encontrar en la carpeta *Debug* el .exe 
+
+<img width="679" height="234" alt="Captura de pantalla 2025-07-30 003326" src="https://github.com/user-attachments/assets/ff55ab16-42c4-43d7-adf8-5b7d74551c29" />
 
 ## Elaborado en
 La única herramienta utilizada y mencionada en todo el README es:
@@ -47,8 +53,10 @@ _Los autores que hicieron posible este proyecto son:_
 
 ### Manual Técnico
 
-[MANUAL TÉCNICO - SISTEMA DE MATRICULACIÓN VEHICULAR.pdf](https://github.com/user-attachments/files/21482224/MANUAL.TECNICO.-.SISTEMA.DE.MATRICULACION.VEHICULAR.pdf)
+[MANUAL TÉCNICO - SISTEMA DE MATRICULACIÓN VEHICULAR.pdf](https://github.com/user-attachments/files/21503427/MANUAL.TECNICO.-.SISTEMA.DE.MATRICULACION.VEHICULAR.pdf)
+
 
 ### Manual de Usuario
 
-[MANUAL DE USUARIO - SISTEMA DE MATRICULACIÓN VEHICULAR.pdf](https://github.com/user-attachments/files/21482219/MANUAL.DE.USUARIO.-.SISTEMA.DE.MATRICULACION.VEHICULAR.pdf)
+[MANUAL DE USUARIO - SISTEMA DE MATRICULACIÓN VEHICULAR.pdf](https://github.com/user-attachments/files/21503428/MANUAL.DE.USUARIO.-.SISTEMA.DE.MATRICULACION.VEHICULAR.pdf)
+
