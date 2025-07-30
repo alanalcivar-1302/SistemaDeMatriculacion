@@ -11,9 +11,9 @@
 #define TAM_USUARIO 20
 #define TAM_CONTRASENA 10
 
-#define TAM_NOMBRE 50
+#define TAM_NOMBRE 100
 #define TAM_CEDULA 20
-#define TAM_MODELO 30
+#define TAM_MODELO 50
 #define TAM_COLOR 20
 #define TAM_PLACA 10
 //Estructura de los datos
@@ -28,6 +28,7 @@ typedef struct{
 	char colorAuto[10];
 	int anioAuto;
 	int multaVehiculo;
+	int tipoVehiculo;
 	
 }datosUsuario;
 
@@ -92,4 +93,8 @@ char* generarFecha();
 void listarVehiculos();
 
 void validacionAnio(int *anio);
+
+//int extraerRevisiones (char *nombreArchivo, const char *placaBuscada);
+
+int obtenerTipoVehiculo(const char *nombreArchivo, const char *placaBuscada)
 #endif
