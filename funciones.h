@@ -1,16 +1,21 @@
 #ifndef FUNCIONES_H
 #define FUNCIONES_H
-
+#include <stdlib.h>
 
 #include <stdio.h>
 #include <stdbool.h>
-//Tamaño de carácteres en arreglos
-#define TAM_NOMBRE 100
+//TamaÃ±o de carÃ¡cteres en arreglos
+//#define TAM_NOMBRE 100
 #define TAM_PLACA 10
-#define TAM_CEDULA 10
+//#define TAM_CEDULA 10
 #define TAM_USUARIO 20
 #define TAM_CONTRASENA 10
 
+#define TAM_NOMBRE 50
+#define TAM_CEDULA 20
+#define TAM_MODELO 30
+#define TAM_COLOR 20
+#define TAM_PLACA 10
 //Estructura de los datos
 
 
@@ -34,13 +39,15 @@ int continuar();
 
 void opcionesUsuario(int *opcionEscoger, int rangoOpciones);float calcularValormatricula(int pagoAtiempo, int hizoRevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo);
 
-int validacionCaracteres(char stringValidar[]);
+//int validacionCaracteres(char stringValidar[]);
 
-void validacionEntradaNombre(char *stringValidar, int tamanoChar);
+void validacionEntradaNombre(char *destino, int tam);
 
-void validacionNumerica(int *intValidar);
+//void validacionNumerica(int *intValidar);
 
-void validacionCedula(char *cedulaValidar); //cambio a char
+void validacionCedula(char *cedula, int tam); //cambio a char
+
+void validacionAnio(int *anio);
 
 int validarPlaca(char placa[]);
 
@@ -72,5 +79,17 @@ void iniciarSesion();
 
 void clearInputBuffer();
 
-void registrarLog(const char *nivel, const char *funcion, const char *mensaje);	
+void registrarLog();
+
+int validacionVehiculo();
+
+void agendarCita();
+
+void menuInicio();
+
+char* generarFecha();
+
+void listarVehiculos();
+
+void validacionAnio(int *anio);
 #endif
