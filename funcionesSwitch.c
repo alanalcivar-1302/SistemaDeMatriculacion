@@ -43,6 +43,11 @@ void registroVehiculos(FILE *archivoDatos, int *continuarRegistros) {
 		printf("Ingrese el a%co del veh%cculo:\n",164,161);
 		validacionAnio(&persona.anioAuto);
 		
+		limpiarTerminal();
+		printf("Seleccione su tipo de veh%cculo: \n",161);
+		printf(" 1. Autom%cvil \n 2. Motocicleta \n 3. Cami%cn \n 4. Bus \n",162,162);
+		opcionesUsuario(&persona.tipoVehiculo, 2);
+		
 		numeroRandom = (rand() % 5);
 		persona.multaVehiculo = (numeroRandom == 0) ? 0 : (rand() % 501);
 		
@@ -83,7 +88,7 @@ void registroVehiculos(FILE *archivoDatos, int *continuarRegistros) {
 				return;
 			}
 			
-			fprintf(archivoDatos, "%s,%s,%s,%s,%s,%d,%d\n",persona.nombrePropietario, persona.numCedula,persona.modeloAuto, persona.placa,persona.colorAuto, persona.anioAuto,persona.multaVehiculo);
+			fprintf(archivoDatos, "%s,%s,%s,%s,%s,%d,%d,%d\n",persona.nombrePropietario, persona.numCedula,persona.modeloAuto, persona.placa,persona.colorAuto, persona.anioAuto,persona.multaVehiculo,persona.tipoVehiculo);
 			
 			fclose(archivoDatos);
 			
@@ -94,6 +99,7 @@ void registroVehiculos(FILE *archivoDatos, int *continuarRegistros) {
 			printf("Placa: %s\n", persona.placa);
 			printf("Color: %s\n", persona.colorAuto);
 			printf("A%co veh%cculo: %d\n",164,161,persona.anioAuto);
+			printf("Tipo veh%cculo: %d\n",161,persona.tipoVehiculo);
 		} else {
 			printf("La placa %s ya se encuentra registrada\n", persona.placa);
 		}
@@ -113,14 +119,22 @@ void buscarVehiculo(const char *nombreArchivo, const char *datoBuscado) {
 	FILE *archivo = fopen(nombreArchivo, "r");
 	char lineasTxt[201];  
 	int encontrado = 0;
-	char *etiquetas[7] = {
+	char *etiquetas[8] = {
 		"Nombre",
-		"Cedula",
-		"Modelo",
-		"Placa",
-		"Color",
-		"Anio vehiculo",
-		"Valor de Multas"
+			"Cédula",
+			"Modelo",
+			"Placa",
+			"Color",
+			"Año vehículo",
+			"Valor de Multas",
+			"Tipo de vehículo"
+	};
+	
+	char *etiquetaTipo[4] = {
+		"Automóvil",
+			"Motocicleta",
+			"Camión",
+			"Bus"
 	};
 	
 	if (archivo == NULL) {
@@ -129,29 +143,34 @@ void buscarVehiculo(const char *nombreArchivo, const char *datoBuscado) {
 	}
 	
 	while (fgets(lineasTxt, sizeof(lineasTxt), archivo)) {
-		
-		// Elimina el salto de linea final
 		lineasTxt[strcspn(lineasTxt, "\n")] = '\0';
 		
-		// Si la linea contiene el dato buscado (placa, cedula, etc.)
 		if (strstr(lineasTxt, datoBuscado) != NULL) {
-			// Separar por comas
 			char *campo = strtok(lineasTxt, ",");
 			int i = 1;
 			
-			while (campo != NULL) {
-				printf("%s: %s\n",etiquetas[i - 1], campo);
+			while (campo != NULL && i <= 8) {
+				if (i == 8) {
+					int aux = *campo - '0';
+					if (aux >= 0 && aux <= 3)
+						printf("%s: %s\n", etiquetas[i - 1], etiquetaTipo[aux]);
+					else
+						printf("%s: Desconocido (%s)\n", etiquetas[i - 1], campo);
+				} else {
+					printf("%s: %s\n", etiquetas[i - 1], campo);
+				}
+				
 				campo = strtok(NULL, ",");
 				i++;
 			}
 			
 			encontrado = 1;
-			break; 
+			break;
 		}
 	}
 	
 	if (!encontrado) {
-		printf("No se encontr%c ning%cn registro con '%s'\n",162,163,datoBuscado);
+		printf("No se encontr%c ning%cn registro con '%s'\n", 162, 163, datoBuscado); 
 	}
 	
 	fclose(archivo);
@@ -161,55 +180,54 @@ void valorPago(){
 	int nuevoPagomatricula = 1;
 	
 	while (nuevoPagomatricula != 2) {
-		int pagoAtiempo, hizoRevisionVehiculo, diasPago, tipoVehiculo ;
+		int pagoAtiempo, hizoRevisionVehiculo, diasPago, tipoVehiculo;
 		float multasVehiculo, totalpagoMatricula;
 		char placa[TAM_PLACA];
 		
-		printf("Seleccione su tipo de veh%cculo: \n",161);
-		printf(" 1. AutomÃ³vil \n 2. Motocicleta \n 3. CamiÃ³n \n 4. Bus \n");
-		opcionesUsuario(&tipoVehiculo,4);
-		
-		limpiarTerminal();
-		
-		printf("Â¿RealizÃ³ la revisiÃ³n tÃ©cnica? 1. Si, 2. No \n");
-		opcionesUsuario(&hizoRevisionVehiculo,2);
-		
-		limpiarTerminal();
-		
-		printf("Â¿PagÃ³ la matrÃ­cula a tiempo? 1. Si, 2. No \n");
-		opcionesUsuario(&pagoAtiempo,2);
-		
-		limpiarTerminal();
-		
-		printf("Â¿CuÃ¡ntos dÃ­as han pasado desde la notificaciÃ³n?: \n");
-		scanf("%d", &diasPago);
-		
-		limpiarTerminal();
-		
-		printf("Ingrese placa del vehiculo a matricular (ej: ABC-1234)\n");
-		clearInputBuffer();
-		pedirPlaca(placa);
-		limpiarTerminal();
-		
-		multasVehiculo = buscarMulta("datosVehiculos.txt",placa);
-		
-		if (multasVehiculo == -1){
-			printf("Error, el vehiculo no se encuentra en el sistema\n");
-		}
-		else{
-			//Total a pagar de la matrÃ­cula
+		tipoVehiculo = obtenerTipoVehiculo("datosVehiculos.txt", placa);
+		if (tipoVehiculo == -1) {
+			printf("Error: No se pudo determinar el tipo de vehículo.\n");
+		} else {
+			//pon la funcion de la revision aqui, si no cumple no calcula y revisa los calculos que hace en calculoMatrocula.c arregla lo de mas abajo o me dices
 			
-			totalpagoMatricula = calcularValormatricula(pagoAtiempo, hizoRevisionVehiculo, diasPago, multasVehiculo, tipoVehiculo) ;
 			
-			if (totalpagoMatricula >= 0) {
-				printf("\n--------------- COMPROBANTE DE MATRICULA ---------------\n");
-				printf("Recuerde guardar el comprobante. \n");
-				printf("Multas: $%.2f\n", multasVehiculo);
-				printf("Total a pagar: $%.2f\n", totalpagoMatricula);
-				printf("----------------------------------------------------------\n");
+			
+			
+			
+			printf("Â¿PagÃ³ la matrÃ­cula a tiempo? 1. Si, 2. No \n");
+			opcionesUsuario(&pagoAtiempo,2);
+			
+			limpiarTerminal();
+			
+			printf("Â¿CuÃ¡ntos dÃ­as han pasado desde la notificaciÃ³n?: \n");
+			scanf("%d", &diasPago);
+			
+			limpiarTerminal();
+			
+			printf("Ingrese placa del vehiculo a matricular (ej: ABC-1234)\n");
+			clearInputBuffer();
+			pedirPlaca(placa);
+			limpiarTerminal();
+			
+			multasVehiculo = buscarMulta("datosVehiculos.txt",placa);
+			
+			if (multasVehiculo == -1){
+				printf("Error, el vehiculo no se encuentra en el sistema\n");
+			}
+			else{
+				//Total a pagar de la matrÃ­cula
+				
+				totalpagoMatricula = calcularValormatricula(pagoAtiempo, hizoRevisionVehiculo, diasPago, multasVehiculo, tipoVehiculo) ;
+				
+				if (totalpagoMatricula >= 0) {
+					printf("\n--------------- COMPROBANTE DE MATRICULA ---------------\n");
+					printf("Recuerde guardar el comprobante. \n");
+					printf("Multas: $%.2f\n", multasVehiculo);
+					printf("Total a pagar: $%.2f\n", totalpagoMatricula);
+					printf("----------------------------------------------------------\n");
+				}
 			}
 		}
-		
 		system("pause");
 		limpiarTerminal();
 		
