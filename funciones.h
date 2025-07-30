@@ -38,13 +38,9 @@ void menu();
 
 int continuar();
 
-void opcionesUsuario(int *opcionEscoger, int rangoOpciones);float calcularValormatricula(int pagoAtiempo, int hizoRevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo);
-
-//int validacionCaracteres(char stringValidar[]);
+void opcionesUsuario(int *opcionEscoger, int rangoOpciones);
 
 void validacionEntradaNombre(char *destino, int tam);
-
-//void validacionNumerica(int *intValidar);
 
 void validacionCedula(char *cedula, int tam); //cambio a char
 
@@ -54,7 +50,7 @@ int validarPlaca(char placa[]);
 
 void pedirPlaca(char placa[]);
 
-float calcularValormatricula(int pagoAtiempo, int hizoevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo);
+int calcularValormatricula(int multasVehiculo, int tipoVehiculo);
 
 void buscarVehiculo(const char *nombreArchivo, const char *datoBuscado);
 
@@ -94,7 +90,7 @@ void listarVehiculos();
 
 void validacionAnio(int *anio);
 
-//int extraerRevisiones (char *nombreArchivo, const char *placaBuscada);
+int extraerRevisiones(const char *placaBuscada);
 
-int obtenerTipoVehiculo(const char *nombreArchivo, const char *placaBuscada)
+int obtenerTipoVehiculo(const char *nombreArchivo, const char *placaBuscada);
 #endif
