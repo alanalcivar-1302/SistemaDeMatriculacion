@@ -58,10 +58,10 @@ int buscarMulta(const char *nombreArchivo, const char *placaBuscada) {
 	}
 	
 	while (fgets(linea, sizeof(linea), archivo)) {
-		// Elimina el salto de línea final
+		// Elimina el salto de lÃ­nea final
 		linea[strcspn(linea, "\n")] = '\0';
 		
-		// Verifica si la línea contiene la placa buscada
+		// Verifica si la lÃ­nea contiene la placa buscada
 		if (strstr(linea, placaBuscada) != NULL) {
 			char *campo = strtok(linea, ",");
 			int i = 1;
@@ -79,6 +79,6 @@ int buscarMulta(const char *nombreArchivo, const char *placaBuscada) {
 	}
 	
 	fclose(archivo);
-	printf("No se encontró ninguna multa con la placa '%s'\n", placaBuscada);
+	printf("No se encontrÃ³ ninguna multa con la placa '%s'\n", placaBuscada);
 	return -1;
 }
