@@ -46,7 +46,7 @@ void registroVehiculos(FILE *archivoDatos, int *continuarRegistros) {
 		limpiarTerminal();
 		printf("Seleccione su tipo de veh%cculo: \n",161);
 		printf(" 1. Autom%cvil \n 2. Motocicleta \n 3. Cami%cn \n 4. Bus \n",162,162);
-		opcionesUsuario(&persona.tipoVehiculo, 2);
+		opcionesUsuario(&persona.tipoVehiculo, 4);
 		
 		numeroRandom = (rand() % 5);
 		persona.multaVehiculo = (numeroRandom == 0) ? 0 : (rand() % 501);
@@ -125,15 +125,15 @@ void buscarVehiculo(const char *nombreArchivo, const char *datoBuscado) {
 			"Modelo",
 			"Placa",
 			"Color",
-			"Año vehículo",
+			"Anio vehiculo",
 			"Valor de Multas",
-			"Tipo de vehículo"
+			"Tipo de vehiculo"
 	};
 	
 	char *etiquetaTipo[4] = {
-		"Automóvil",
+			"Automovil",
 			"Motocicleta",
-			"Camión",
+			"Camion",
 			"Bus"
 	};
 	
@@ -153,7 +153,7 @@ void buscarVehiculo(const char *nombreArchivo, const char *datoBuscado) {
 				if (i == 8) {
 					int aux = *campo - '0';
 					if (aux >= 0 && aux <= 3)
-						printf("%s: %s\n", etiquetas[i - 1], etiquetaTipo[aux]);
+						printf("%s: %s\n", etiquetas[i - 1], etiquetaTipo[aux - 1]);
 					else
 						printf("%s: Desconocido (%s)\n", etiquetas[i - 1], campo);
 				} else {
@@ -177,57 +177,40 @@ void buscarVehiculo(const char *nombreArchivo, const char *datoBuscado) {
 }
 
 void valorPago(){
-	int nuevoPagomatricula = 1;
+	int nuevoPagomatricula = 0;
 	
 	while (nuevoPagomatricula != 2) {
-		int pagoAtiempo, hizoRevisionVehiculo, diasPago, tipoVehiculo;
-		float multasVehiculo, totalpagoMatricula;
+		int revision, tipoVehiculo, multasVehiculo, totalpagoMatricula;
 		char placa[TAM_PLACA];
 		
-		tipoVehiculo = obtenerTipoVehiculo("datosVehiculos.txt", placa);
-		if (tipoVehiculo == -1) {
-			printf("Error: No se pudo determinar el tipo de vehículo.\n");
-		} else {
-			//pon la funcion de la revision aqui, si no cumple no calcula y revisa los calculos que hace en calculoMatrocula.c arregla lo de mas abajo o me dices
-			
-			
-			
-			
-			
-			printf("Â¿PagÃ³ la matrÃ­cula a tiempo? 1. Si, 2. No \n");
-			opcionesUsuario(&pagoAtiempo,2);
-			
-			limpiarTerminal();
-			
-			printf("Â¿CuÃ¡ntos dÃ­as han pasado desde la notificaciÃ³n?: \n");
-			scanf("%d", &diasPago);
-			
-			limpiarTerminal();
-			
-			printf("Ingrese placa del vehiculo a matricular (ej: ABC-1234)\n");
-			clearInputBuffer();
-			pedirPlaca(placa);
-			limpiarTerminal();
+		printf("Ingrese placa del vehiculo a matricular (ej: ABC-1234)\n");
+		clearInputBuffer();
+		pedirPlaca(placa);
+		limpiarTerminal();
+		
+		revision = extraerRevisiones(placa);
+		
+		if(revision == 3){
+			tipoVehiculo = obtenerTipoVehiculo("datosVehiculos.txt", placa);
 			
 			multasVehiculo = buscarMulta("datosVehiculos.txt",placa);
 			
-			if (multasVehiculo == -1){
-				printf("Error, el vehiculo no se encuentra en el sistema\n");
-			}
-			else{
-				//Total a pagar de la matrÃ­cula
-				
-				totalpagoMatricula = calcularValormatricula(pagoAtiempo, hizoRevisionVehiculo, diasPago, multasVehiculo, tipoVehiculo) ;
-				
-				if (totalpagoMatricula >= 0) {
-					printf("\n--------------- COMPROBANTE DE MATRICULA ---------------\n");
-					printf("Recuerde guardar el comprobante. \n");
-					printf("Multas: $%.2f\n", multasVehiculo);
-					printf("Total a pagar: $%.2f\n", totalpagoMatricula);
-					printf("----------------------------------------------------------\n");
-				}
-			}
+			totalpagoMatricula = calcularValormatricula(multasVehiculo, tipoVehiculo);
+			
+			printf("\n--------------- COMPROBANTE DE MATRICULA ---------------\n");
+			printf("Recuerde guardar el comprobante. \n");
+			printf("Multas: $%d\n", multasVehiculo);
+			printf("Total a pagar: $%d\n", totalpagoMatricula);
+			printf("----------------------------------------------------------\n");
+			
+			
 		}
+		if(revision == -1)
+			printf("El auto con la placa %s no esta en nuestros registros\n",placa);
+		
+		if((revision < 3) && (revision > 0))
+			printf("Debe realizar las 3 revisiones\n");
+		
 		system("pause");
 		limpiarTerminal();
 		
@@ -251,7 +234,6 @@ void listarVehiculos() {
 	char linea[256];
 	int contador = 0;
 	
-	printf("=== Lista de vehiculos Registrados ===\n");
 	
 	while (fgets(linea, sizeof(linea), archivo)) {
 		// Eliminar salto de lï¿½nea si existe
