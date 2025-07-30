@@ -1,4 +1,4 @@
 
 Alan Alcivar,1234567890,Mazda,POI-1234,Rojo,2021,112,1
-Esteban,1237894560,Kia,ABC-1234,Verde,2023,228,2
-Esteban mamahuevo,4567891230,Kia,LKJ-4563,Azul,2021,499,3
+Esteban Flor,1237894560,Kia,ABC-1234,Verde,2023,228,2
+Erick Villanueva,4567891230,Kia,LKJ-4563,Azul,2021,499,3
