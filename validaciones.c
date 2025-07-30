@@ -17,7 +17,7 @@ void registrarLog(const char *nivel, const char *funcion, const char *mensaje) {
 	time_t tiempoActual = time(NULL);
 	char *tiempoTexto = ctime(&tiempoActual);
 	
-	// Eliminar salto de línea
+	// Eliminar salto de lÃ­nea
 	for (int i = 0; tiempoTexto[i] != '\0'; i++) {
 		if (tiempoTexto[i] == '\n') {
 			tiempoTexto[i] = '\0';
@@ -29,61 +29,107 @@ void registrarLog(const char *nivel, const char *funcion, const char *mensaje) {
 	fclose(log);
 }
 
+void validacionEntradaNombre(char *destino, int tam) {
+	int valido = 0;
+	while (!valido) {
+		printf(" ");
+		fgets(destino, tam, stdin);
+		destino[strcspn(destino, "\n")] = '\0';  // Elimina el salto de línea
+		
+		valido = 1;
+		for (int i = 0; destino[i] != '\0'; i++) {
+			if (!isalpha(destino[i]) && destino[i] != ' ') {
+				valido = 0;
+				break;
+			}
+		}
+		
+		if (!valido) {
+			printf("Nombre inválido. Solo letras y espacios. Intente de nuevo:\n");
+		}
+	}
+}
+
+void validacionCedula(char *cedula, int tam) {
+	int valido = 0;
+	while (!valido) {
+		fgets(cedula, tam, stdin);
+		cedula[strcspn(cedula, "\n")] = '\0';
+		
+		int len = strlen(cedula);
+		valido = (len == 10);
+		for (int i = 0; i < len && valido; i++) {
+			if (!isdigit(cedula[i])) {
+				valido = 0;
+			}
+		}
+		if (!valido)
+			printf("Cédula inválida. Debe tener 10 dígitos numéricos.\n");
+	}
+}
+
+void validacionAnio(int *anio) {
+	char buffer[10];
+	int valido = 0;
+	while (!valido) {
+		fgets(buffer, sizeof(buffer), stdin);
+		if (sscanf(buffer, "%d", anio) == 1 && *anio >= 1990 && *anio <= 2025) {
+			valido = 1;
+		} else {
+			printf("Año inválido. Debe estar entre 1990 y 2025.\n");
+		}
+	}
+}
+
 void opcionesUsuario(int *opcionEscoger, int rangoOpciones){
 	
-	validacionNumerica(opcionEscoger);
-	//scanf("%d",opcionEscoger);
-	while ((*opcionEscoger < 0) || (*opcionEscoger > rangoOpciones) ){
-		limpiarTerminal();
-		menu();
+	scanf("%d",opcionEscoger);
+	while ((*opcionEscoger < 0) || (*opcionEscoger > rangoOpciones)){
 		printf("Opcion no valida, ingrese nuevamente (1-%d)\n",rangoOpciones);
-		validacionNumerica(opcionEscoger);
+		scanf("%d",	opcionEscoger);
 	}
 };
-
+	
+/*
 //Nombre - Caracteres
 int validacionCaracteres(char stringValidar[]){
 	for (int i = 0; stringValidar[i] != '\0'; i++){
-		if (!isalpha(stringValidar[i]) && stringValidar[i] != ' '){
+		if (!isalpha(stringValidar[i]) || (stringValidar[i] == '\0')){
 			return 0;
 		}
 	}
 	return 1;
 }
 
-void validacionEntradaNombre(char *stringValidar, int tamanoChar) {
+void validacionEntradaNombre(char *stringValidar){
 	int resultado, intentos = 0;
-	
-	do {
-		if (intentos > 0) {
-			limpiarTerminal();
-			printf("Se ingresó información errónea. Intente de nuevo su nombre:\n");
+	do
+	{
+		if (intentos == 0){
+			intentos++;
 		}
-		
-		fgets(stringValidar, tamanoChar, stdin);
-		
-		size_t len = strlen(stringValidar);
-		if (len > 0 && stringValidar[len - 1] == '\n') {
-			stringValidar[len - 1] = '\0';
+		else{
+			if (intentos == 1){
+				printf("Se ingresÃ³ informaciÃ³n erronea\n");
+			}
 		}
-		
+		scanf("%s",stringValidar);
 		resultado = validacionCaracteres(stringValidar);
-		intentos++;
-		
-	} while (resultado != 1);
+	}while(resultado != 1);
+	
 }
-
+			
 //Validacion Cedula
 
 void validacionNumerica(int *valor) {
 	
 	while (scanf("%d", valor) != 1) {
 		clearInputBuffer();
-		limpiarTerminal();
-		printf("Entrada inválida. Ingrese solo números: \n");
+		printf("Entrada invÃ¡lida. Ingrese solo nÃºmeros: \n");
 	}
 	
 }
+
 
 void validacionCedula(char *cedulaValidar){
 	int longitud = 0, condiciones = 0;
@@ -92,8 +138,6 @@ void validacionCedula(char *cedulaValidar){
 		condiciones = 0;
 		
 		scanf("%s",cedulaValidar);
-		clearInputBuffer();
-		
 		limpiarTerminal();
 		
 		for (int i = 0; cedulaValidar[i] != '\0'; i++){
@@ -112,14 +156,15 @@ void validacionCedula(char *cedulaValidar){
 		}
 		
 		if (condiciones == 0)
-			printf("Cédula incompleta ingrese nuevamente\n");
+			printf("CÃ©dula incompleta ingrese nuevamente\n");
 		
 		if(condiciones == 2)
-			printf("Se ingresó información erronea, ingrese nuevamente su cédula\n");
+			printf("Se ingresÃ³ informaciÃ³n erronea, ingrese nuevamente su cÃ©dula\n");
 		
 	} while ((condiciones == 0) || (condiciones == 2));
 }
 
+*/
 
 //Validacion placa
 int validarPlaca(char placa[]) {
