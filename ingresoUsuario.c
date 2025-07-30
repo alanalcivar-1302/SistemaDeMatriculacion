@@ -4,8 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
-#include <locale.h>
-#include <wchar.h>
+
 
 #define MAX 100
 #define TAM_NOMBRE 100
