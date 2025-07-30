@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <locale.h>
+#include <wchar.h>
 
 #define MAX 100
 #define TAM_NOMBRE 100
@@ -43,10 +45,8 @@ void menuInicio(){
 			
 			break;
 		case 3:{
-			printf("-----Calculo del valor de la matr%ccula-----\n",161);
-			
-			valorPago();
-			
+
+				valorPago();
 			break;
 		}
 		case 4:
@@ -69,7 +69,7 @@ void menuInicio(){
 		limpiarTerminal();
 	}
 }
-
+	
 typedef struct {
 	char usuario[20];
 	char contrasena[10];
@@ -83,7 +83,7 @@ void cargarUsuarios() {
 	FILE *archivo = fopen("Users.txt", "r");
 	if (archivo) {
 		while (fscanf(archivo, "%49[^,],%49s\n", usuarios[totalUsuarios].usuario, 
-			usuarios[totalUsuarios].contrasena) == 2) {
+					  usuarios[totalUsuarios].contrasena) == 2) {
 			totalUsuarios++;
 		}
 		fclose(archivo);
@@ -131,16 +131,30 @@ void registrar() {
 	
 	totalUsuarios++;
 	guardarUsuarios();
-	printf("\n%cRegistro exitoso! Ahora puedes iniciar sesi%cn.\n\n",33,162);
+	printf("\n%cRegistro exitoso!\n",33);
 	system("pause");
 	limpiarTerminal();
+	menuInicio();
 }
 
 void iniciarSesion() {
+	int opcion;
+	
+	printf("\n¿Desea registrarse antes de iniciar sesi%cn?\n",162);
+	printf("1. Si\n");
+	printf("2. No, quiero iniciar sesi%cn\n",162);
+	printf("\nSeleccione una opci%cn: ",162);
+	opcionesUsuario(&opcion, 2);// Asumiendo que esta función valida la opción
+	
+	if (opcion == 1) {
+		limpiarTerminal();
+		registrar();  // Llama a la función de registro
+		return;  // Termina la función para no continuar con el inicio de sesión
+	}
 	char usuario[50];
 	char contrasena[50];
 	
-	
+	limpiarTerminal();
 	printf("Usuario: ");
 	scanf("%49s", usuario);
 	
@@ -157,19 +171,19 @@ void iniciarSesion() {
 		limpiarTerminal();
 		int opcion;
 		printf("\nUsuario o contrase%ca incorrectos\n",164);
-		printf("1. Intentar de nuevo\n");
-		printf("2. Registrarse\n");
-		printf("Seleccione una opci%cn: ",162);
+		printf("1.Regresar\n");
+		//printf("2. Registrarse\n");
+		//printf("Seleccione una opci%cn: ",162);
 		scanf("%d", &opcion);
 		
 		if (opcion == 1) {
 			limpiarTerminal();
 			iniciarSesion();
-		} else if (opcion == 2) {
+		} /*else if (opcion == 2) {
 			limpiarTerminal();
 			registrar();
 			iniciarSesion();
-		}
+		}*/
 	}
 }
 
