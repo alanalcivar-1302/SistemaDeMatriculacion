@@ -5,8 +5,107 @@
 #include <stdlib.h>
 #include <time.h>
 
+void registroVehiculos(FILE *archivoDatos, int *continuarRegistros) {
+	srand(time(NULL));
+	char lineaTxt[201];
+	int numeroRandom = 0, encontrado = 0;
+	datosUsuario persona;
+	
+	do {
+		limpiarTerminal();
+		clearInputBuffer();
+		encontrado = 0;
+		
+		printf("Ingrese el nombre del propietario:\n");
+		validacionEntradaNombre(persona.nombrePropietario, TAM_NOMBRE);
+		
+		limpiarTerminal();
+		printf("Ingrese su número de cédula:\n");
+		validacionCedula(persona.numCedula, TAM_CEDULA);
+		
+		limpiarTerminal();
+		printf("Ingrese el modelo del vehículo (ej: MazdaRX):\n");
+		fgets(persona.modeloAuto, TAM_MODELO, stdin);
+		persona.modeloAuto[strcspn(persona.modeloAuto, "\n")] = '\0';
+		
+		limpiarTerminal();
+		printf("Ingrese la placa (ej: ABC-1234):\n");
+		pedirPlaca(persona.placa);
+		
+		limpiarTerminal();
+		printf("Ingrese el color del vehículo:\n");
+		fgets(persona.colorAuto, TAM_COLOR, stdin);
+		persona.colorAuto[strcspn(persona.colorAuto, "\n")] = '\0';
+		
+		limpiarTerminal();
+		printf("Ingrese el año del vehículo:\n");
+		validacionAnio(&persona.anioAuto);
+		
+		numeroRandom = (rand() % 5);
+		persona.multaVehiculo = (numeroRandom == 0) ? 0 : (rand() % 501);
+		
+		// Abrimos aquí para leer cada vez que se registra un nuevo vehículo
+		archivoDatos = fopen("datosVehiculos.txt", "r");
+		if (archivoDatos != NULL) {
+			while (fgets(lineaTxt, sizeof(lineaTxt), archivoDatos)) {
+				lineaTxt[strcspn(lineaTxt, "\n")] = '\0';
+				
+				char *token;
+				int campoIndex = 0;
+				char placaArchivo[50] = "";
+				
+				token = strtok(lineaTxt, ",");
+				while (token != NULL) {
+					campoIndex++;
+					if (campoIndex == 4) {
+						strcpy(placaArchivo, token);
+						break;
+					}
+					token = strtok(NULL, ",");
+				}
+				
+				if (strcmp(placaArchivo, persona.placa) == 0) {
+					encontrado = 1;
+					break;
+				}
+			}
+		}
+		
+		fclose(archivoDatos);
+		
+		if (!encontrado) {
+			archivoDatos = fopen("datosVehiculos.txt", "a");
+			if (archivoDatos == NULL) {
+				printf("Error: No se pudo abrir el archivo para escritura.\n");
+				registrarLog("ERROR", "registroVehiculos", "No se pudo abrir el archivo en modo 'a'");
+				return;
+			}
+			
+			fprintf(archivoDatos, "%s,%s,%s,%s,%s,%d,%d\n",persona.nombrePropietario, persona.numCedula,persona.modeloAuto, persona.placa,persona.colorAuto, persona.anioAuto,persona.multaVehiculo);
+			
+			fclose(archivoDatos);
+			
+			printf("Vehículo registrado correctamente.\n");
+			printf("Nombre: %s\n", persona.nombrePropietario);
+			printf("Cedula: %s\n", persona.numCedula);
+			printf("Modelo: %s\n", persona.modeloAuto);
+			printf("Placa: %s\n", persona.placa);
+			printf("Color: %s\n", persona.colorAuto);
+			printf("Año vehiculo: %d\n", persona.anioAuto);
+		} else {
+			printf("La placa %s ya se encuentra registrada\n", persona.placa);
+		}
+		
+		system("pause");
+		limpiarTerminal();
+		
+		printf("¿Desea registrar otro vehículo? 1. Sí, 2. No\n");
+		opcionesUsuario(continuarRegistros, 2);
+		
+	} while (*continuarRegistros == 1);
+}
 
-
+/*
 void registroVehiculos(FILE *archivoDatos, int *continuarRegistros) {
 	srand(time(NULL));
 	char lineaTxt[201];
@@ -112,94 +211,7 @@ void registroVehiculos(FILE *archivoDatos, int *continuarRegistros) {
 	} while (*continuarRegistros == 1);
 	
 	fclose(archivoDatos);
-}
-/*void registroVehiculos(FILE *archivoDatos, int *continuarRegistros){
-	
-	srand(time(NULL));
-	
-	int numeroRandom = 0;
-	datosUsuario persona;
-	
-	archivoDatos = fopen("datosVehiculos.txt","a");
-	
-	if (archivoDatos == NULL) {
-		printf("Error: El archivo no existe.\n");
-		registrarLog("ERROR", "main", "No se pudo abrir el archivo datosVehiculos.txt.");
-	}
-	else{
-		clearInputBuffer();
-			
-		do {
-			
-			//ingresar datos del usuario
-			printf("Ingrese el nombre del propietario\n");
-			validacionEntradaNombre(persona.nombrePropietario);
-			
-			limpiarTerminal();
-			
-			clearInputBuffer();
-			printf("Ingrese su numero de cedula \n");
-			validacionCedula(persona.numCedula); //Cambio del &
-			
-			limpiarTerminal();
-			
-			clearInputBuffer();
-			printf("Ingrese el modelo del vehiculo (ej: MazdaRx)\n");
-			scanf("%s",persona.modeloAuto);
-			
-			limpiarTerminal();
-			
-			clearInputBuffer();
-			printf("Ingrese la placa (ej: ABC-1234): \n");
-			pedirPlaca(persona.placa);
-			
-			limpiarTerminal();
-			
-			printf("Ingresar el color del vehÃ­culo\n");
-			scanf("%s",persona.colorAuto);
-			
-			limpiarTerminal();
-			
-			printf("Ingresar aÃ±o del vehÃ­culo\n");
-			validacionNumerica(&persona.anioAuto);
-			while((persona.anioAuto < 1990) || (persona.anioAuto > 2025)){
-				printf("IngresÃ³ un aÃ±o incorrecto, intente nuevamente\n");
-				validacionNumerica(&persona.anioAuto);
-			}
-			
-			numeroRandom = (rand() % 5);
-			if (numeroRandom == 0){
-				persona.multaVehiculo = 0;
-			}
-			else{
-				persona.multaVehiculo = (rand() % 501);
-			}
-			
-			limpiarTerminal();
-			
-			//Escribir los datos en el txt 
-			fprintf(archivoDatos,"%s,%s,%s,%s,%s,%d,%d\n",persona.nombrePropietario,persona.numCedula,persona.modeloAuto,persona.placa, persona.colorAuto, persona.anioAuto,persona.multaVehiculo);
-			
-			printf("Se ha registrado correctamente el vehÃ­culo\n");
-			printf("Nombre: %s\n",persona.nombrePropietario);
-			printf("Cedula: %s\n",persona.numCedula);
-			printf("Modelo: %s\n",persona.modeloAuto);
-			printf("Placa: %s\n",persona.placa);
-			printf("Color: %s\n",persona.colorAuto);
-			printf("AÃ±o vehiculo: %d\n",persona.anioAuto);
-			
-			system("pause");
-			limpiarTerminal();
-			
-			printf("Desea registrar otro vehiculo 1. Si, 2. No\n");
-			opcionesUsuario(continuarRegistros,2);
-			
-		}while(*continuarRegistros == 1);
-	}
-	fclose(archivoDatos);
-	
-}
-*/
+}*/
 
 void buscarVehiculo(const char *nombreArchivo, const char *datoBuscado) {
 	FILE *archivo = fopen(nombreArchivo, "r");
