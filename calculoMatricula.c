@@ -82,3 +82,45 @@ int buscarMulta(const char *nombreArchivo, const char *placaBuscada) {
 	printf("No se encontrc% ninguna multa con la placa '%s'\n",162,placaBuscada);
 	return -1;
 }
+
+int obtenerTipoVehiculo(const char *nombreArchivo, const char *placaBuscada) {
+	FILE *archivo = fopen(nombreArchivo, "r");
+	char linea[201];
+	
+	if (archivo == NULL) {
+		printf("Error: no se pudo abrir el archivo.\n");
+		return -1; // Código de error
+	}
+	
+	while (fgets(linea, sizeof(linea), archivo)) {
+		linea[strcspn(linea, "\n")] = '\0';  // Eliminar salto de línea
+		char lineaCopia[201];
+		strcpy(lineaCopia, linea);
+		
+		// Verificamos si la línea contiene la placa
+		if (strstr(linea, placaBuscada) != NULL) {
+			char *campo = strtok(lineaCopia, ",");
+			int campoIndex = 1;
+			
+			int tipoNum = -1;
+			while (campo != NULL) {
+				if (campoIndex == 8) {  
+					tipoNum = *campo - '0';
+					break;
+				}
+				campo = strtok(NULL, ",");
+				campoIndex++;
+			}
+			
+			fclose(archivo);
+			
+			if (tipoNum >= 0 && tipoNum <= 3)
+				return tipoNum;
+			else
+				return -1; // Tipo inválido
+		}
+	}
+	
+	fclose(archivo);
+	return -1; // No se encontró la placa
+}
