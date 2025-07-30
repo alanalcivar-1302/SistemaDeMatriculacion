@@ -2,80 +2,31 @@
 
 #include <stdio.h>
 #include <string.h>
-int extraerRevisiones(char *nombreArchivo, const char *placaBuscada){
-	FILE *archivo = fopen(nombreArchivo, "r");
-	char linea[201];
-	
-	if (archivo = NULL){
-		printf("No se pudo abrir el archivo.\n");
-		return -1;
-	}
-	while (fgets(linea, sizeof(linea),archivo)){
-		linea[strcspn(linea, "\n")] = '\0';
-		
-		if (strstr(linea, placaBuscada) != NULL){
-			char *campo = strtok(linea, ",");
-			int i = 1;
-			
-			while (campo != NULL){
-				if (i == 2){
-					int revisiones = atoi(campo);
-					fclose(archivo);
-					return revisiones;
-				}
-				campo = strtok(NULL, ",");
-				i++;
-			}
-		}
-	}
-	fclose(archivo);
-	printf("No se encontr%c el vehi%culo '%s'\n",162,161,placaBuscada);
-	return -1;
-}
 
-
-float calcularValormatricula(int pagoAtiempo, int hizoRevisionVehiculo, int diasPago, float multasVehiculo, int tipoVehiculo) {
+int calcularValormatricula(int multasVehiculo, int tipoVehiculo) {
 	
-	//Datos del recargo y descuentos
-	float recargoRevision = 50.0; //D?lares
-	float recargoMes = 25.0; //D?lares
-	float descuentoProntopago = 0.5;  //Porcentaje de descuento (50%)
-	float MatriculaporVehiculo; //Variable de subsecciones para el tipo de veh?culo.
+	int matriculaporVehiculo; //Variable de subsecciones para el tipo de veh?culo.
 	
 	//Precio de matr?cula con respecto al tipo de veh?culo 
 	switch (tipoVehiculo){
 	case 1: 
-		MatriculaporVehiculo = 100.0;  //Para auto
+		matriculaporVehiculo = 100;  //Para auto
 		break;
 	case 2: 
-		MatriculaporVehiculo = 150.0; //Para motocicleta
+		matriculaporVehiculo = 150; //Para motocicleta
 		break;
 	case 3: 
-		MatriculaporVehiculo = 250.0; //Para cami?n
+		matriculaporVehiculo = 250; //Para cami?n
 		break;
 	case 4: 
-		MatriculaporVehiculo = 175.0; //Para Bus
+		matriculaporVehiculo = 175; //Para Bus
 		break;
 	default:
 		return 0;
 	}
 	
-	// Se suman recargos
-	if (hizoRevisionVehiculo == 2) {
-		MatriculaporVehiculo += recargoRevision;
-	}
-	
-	if (pagoAtiempo == 2) {
-		MatriculaporVehiculo += recargoMes;
-	}
-	
-	// Descuento solamente si d?as <= 20
-	if (pagoAtiempo == 1 && diasPago <= 20) {
-		MatriculaporVehiculo *= (1 - descuentoProntopago);   // Para 50% de descuento
-	}
-	
 	// Total a pagar
-	return MatriculaporVehiculo + multasVehiculo;
+	return matriculaporVehiculo + multasVehiculo;
 	
 }
 
@@ -154,4 +105,31 @@ int obtenerTipoVehiculo(const char *nombreArchivo, const char *placaBuscada) {
 	
 	fclose(archivo);
 	return -1; // No se encontró la placa
+}
+
+int extraerRevisiones(const char *placaBuscada) {
+	FILE *archivo = fopen("revisiones.txt", "r");
+	char linea[201];
+	
+	if (archivo == NULL) {
+		printf("No se pudo abrir el archivo.\n");
+		return -1;
+	}
+	
+	while (fgets(linea, sizeof(linea), archivo)) {
+		linea[strcspn(linea, "\n")] = '\0';
+		
+		// Separar los campos por coma
+		char *placa = strtok(linea, ",");
+		char *revStr = strtok(NULL, ",");
+		
+		if (placa && revStr && strcmp(placa, placaBuscada) == 0) {
+			int revisiones = atoi(revStr);
+			fclose(archivo);
+			return revisiones;
+		}
+	}
+	
+	fclose(archivo);
+	return -1;
 }
