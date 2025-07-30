@@ -7,7 +7,7 @@
 int main(){
 
 	
-	printf("===Bienvenido al sistema de registro vehicular.===\n");
+	printf("===Bienvenido al sistema de registro veh%ccular.===\n",161);
 	cargarUsuarios();
 	iniciarSesion();
 	
