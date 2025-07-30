@@ -79,6 +79,6 @@ int buscarMulta(const char *nombreArchivo, const char *placaBuscada) {
 	}
 	
 	fclose(archivo);
-	printf("No se encontrÃ³ ninguna multa con la placa '%s'\n", placaBuscada);
+	printf("No se encontrc% ninguna multa con la placa '%s'\n",162,placaBuscada);
 	return -1;
 }
