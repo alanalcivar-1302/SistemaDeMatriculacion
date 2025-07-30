@@ -24,7 +24,7 @@ _El proyecto no será lanzado oficialmente. Esto solo es una simulación con fin
 ### Opción 3:
 *	Si todo lo demás no te funcionó. Descarga de nuevo el programa.
 *	Si eso todavía no funciona. Descarga y reinstala de nuevo el IDE Zinjai.
-### Ejecutando las pruebas⚙️
+### Ejecución
 *	Una vez con el código abierto presiona F9 para iniciar el programa o en la parte superior de Zinjai busca la opción **Ejecución** y presiona **Ejecutar…**
 *	Se ejecutará el programa. Puede tardar unos segundos si es la primera vez que lo inicias.
 *	El .exe se creará automáticamente dentro del programa para no realizar estos pasos de nuevo.
@@ -43,6 +43,8 @@ _Los autores que hicieron posible este proyecto son:_
 ## Gratitud :)
 * Agradecemos el tiempo que se tomó en leer este breve **README**
 * Por último, le presentamos los respectivos manuales para una mejor comprensión del programa tanto para desarrollador y usuario.
+* El presente README se desarrolló como referencia la plantilla de [Andrés Villanueva](https://gist.github.com/Villanuevand)
+
 ### Manual Técnico
 
 [MANUAL TÉCNICO - SISTEMA DE MATRICULACIÓN VEHICULAR.pdf](https://github.com/user-attachments/files/21482224/MANUAL.TECNICO.-.SISTEMA.DE.MATRICULACION.VEHICULAR.pdf)
