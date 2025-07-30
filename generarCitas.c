@@ -126,7 +126,7 @@ void agendarCita() {
 	clearInputBuffer();
 	
 	printf("Ingrese la placa del vehiculo: \n");
-	scanf("%s", validacionPlaca);
+	//scanf("%s", validacionPlaca);
 	/*printf("%s",validacionPlaca);*/
 	pedirPlaca(validacionPlaca);
 
